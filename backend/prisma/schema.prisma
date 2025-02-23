@@ -1,0 +1,108 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  userId          Int       @id @default(autoincrement())
+  firstName       String    @db.VarChar(50)
+  lastName        String?   @db.VarChar(50)
+  email           String    @unique @db.VarChar(100)
+  password        String    @db.VarChar(60)
+  lastLogin       DateTime?
+  mfaOtp          Int?
+  mfaOtpStartTime DateTime?
+  role            Role
+  isActive        Boolean   @default(true)
+  // System Fields
+  createdBy       Int?
+  createdAt       DateTime  @default(now())
+  modifiedBy      Int?
+  modifiedAt      DateTime  @updatedAt
+  isDeleted       Boolean   @default(false)
+
+  sentNotifications     Notification[] @relation("SentNotifications")
+  receivedNotifications Notification[] @relation("ReceivedNotifications")
+}
+
+model WaterService {
+  id                    Int               @id @default(autoincrement())
+  appNumber             String            @db.VarChar(50)
+  propertyType          PropertyType
+  lotNo                 String            @db.VarChar(50)
+  houseNo               String            @db.VarChar(50)
+  street                String            @db.VarChar(100)
+  nearestCrossroad      String            @db.VarChar(100)
+  ownerName             String            @db.VarChar(100)
+  ownerTel              String            @db.VarChar(20)
+  addressLine1          String            @db.VarChar(200)
+  suburb                String            @db.VarChar(100)
+  postalCode            String            @db.VarChar(20)
+  state                 String            @db.VarChar(50)
+  country               String            @db.VarChar(50)
+  builderCompanyName    String            @db.VarChar(100)
+  builderContact        String            @db.VarChar(100)
+  builderTel            String            @db.VarChar(20)
+  builderEmail          String            @db.VarChar(100)
+  lhsNo                 String            @db.VarChar(50)
+  rhsNo                 String            @db.VarChar(50)
+  meterSize             MeterSize
+  flowRate              Float
+  minPressureRequired   Float
+  buildingPlanSubmitted Boolean           @default(false)
+  applicationStatus     ApplicationStatus
+  // System Fields
+  createdBy             Int?
+  createdAt             DateTime          @default(now())
+  modifiedBy            Int?
+  modifiedAt            DateTime          @default(now()) @updatedAt @db.DateTime(3)
+  isDeleted             Boolean           @default(false)
+}
+
+model Notification {
+  id             Int      @id @default(autoincrement())
+  userId         Int
+  receiverUserId Int
+  title          String   @db.VarChar(20)
+  message        String   @db.VarChar(50)
+  isRead         Boolean  @default(false)
+  createdAt      DateTime @default(now())
+  modifiedAt     DateTime @updatedAt
+  sender         User     @relation("SentNotifications", fields: [userId], references: [userId])
+  receiver       User     @relation("ReceivedNotifications", fields: [receiverUserId], references: [userId])
+}
+
+enum PropertyType {
+  MULTI_RESIDENTIAL
+  NON_RESIDENTIAL
+}
+
+enum ApplicationStatus {
+  APPLICATION_UNDER_REVIEW
+  APPLICATION_SUBMITTED
+}
+
+enum MeterSize {
+  SIZE_20MM
+  SIZE_25MM
+  SIZE_40MM
+  SIZE_50MM
+  SIZE_80MM
+  SIZE_100MM
+  SIZE_150MM
+}
+
+enum Role {
+  ADMIN
+  DSP
+  MAP
+  DTL
+  FINANCE
+  CUSTOMER_SERVICE
+  OPERATIONS_TEAM
+  LAND_DEVELOPER
+}

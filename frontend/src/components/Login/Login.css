@@ -1,0 +1,21 @@
+.ant-form-item{
+    margin-bottom: 10px;
+}
+
+.ant-form-item:last-child{
+    margin-top:10px;
+}
+
+.anticon.ant-input-password-icon{
+    color:#0E5782 !important;
+}
+
+.ant-form-item-required::before{
+    content:"" !important;
+}
+
+.ant-form-item-required::after{
+    content: "*" !important;
+    color: red !important;
+    visibility: visible !important;
+}

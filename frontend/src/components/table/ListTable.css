@@ -1,0 +1,72 @@
+.ant-table {
+  border-radius: 0 !important;
+}
+.ant-table-wrapper
+  .ant-table-container
+  table
+  > thead
+  > tr:first-child
+  > *:last-child {
+  border-start-end-radius: 0px;
+}
+.ant-table-wrapper
+  .ant-table-container
+  table
+  > thead
+  > tr:first-child
+  > *:first-child {
+  border-start-start-radius: 0px;
+}
+.ant-table-thead > tr > th {
+  background-color: #3691d6 !important;
+  color: white !important;
+  border-bottom: none !important;
+  position: relative !important;
+  font-weight: 500 !important;
+  font-size: 18px !important;
+  line-height: 22px !important;
+}
+
+.ant-table-thead > tr > th:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 20px;
+  width: 1px;
+  background-color: white;
+}
+
+.ant-table-thead > tr > th::before {
+  display: none !important;
+}
+
+.ant-table-thead > tr > th .ant-table-column-sorter {
+  color: white !important;
+}
+
+.ant-table-tbody > tr > td {
+  font-weight: 400 !important;
+  font-size: 16px !important;
+  line-height: 22px !important;
+}
+.ant-btn-color-default {
+  box-shadow: none;
+}
+.ant-btn-color-primary {
+  box-shadow: none;
+}
+
+.ant-table-row.inactive-row > * {
+  color: #ccc;
+  filter: grayscale(100%) !important; /* Apply grayscale effect */
+}
+
+.ant-table-row.inactive-row .ant-switch-checked {
+  background-color: #cccccc !important;
+}
+
+.ant-table-row.inactive-row > * .ant-btn-variant-link {
+  color: #ccc;
+}

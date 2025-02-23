@@ -1,0 +1,34 @@
+.ant-btn-variant-link {
+  color: black;
+}
+
+.ant-btn {
+  border: none;
+}
+
+.ant-btn-color-default {
+  color: #3691d6;
+}
+
+.ant-table-wrapper
+  .ant-table-container
+  table
+  > thead
+  > tr:first-child
+  > *:first-child {
+  border-start-start-radius: 10px;
+}
+
+.ant-table-wrapper
+  .ant-table-container
+  table
+  > thead
+  > tr:first-child
+  > *:last-child {
+  border-start-end-radius: 10px;
+}
+
+.ant-btn-variant-text:not(:disabled):not(.ant-btn-disabled):hover {
+  color: #3691d6;
+  background: transparent;
+}
