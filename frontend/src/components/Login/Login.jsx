@@ -24,17 +24,17 @@ const Login = () => {
       setIsLoading(true);
       const response = await API.post("/auth/login", data);
       if (response.status === 200) {
-        toast.success(response.data.message, {
+        toast.success("Welcome back! Ready to connect?", {
           pauseOnHover: false,
           autoClose: 2000,
         });
         dispatch(loginUser({ user: response.data.user }));
-        navigate("/app", {
+        navigate("/home", {
           replace: true,
         });
       }
     } catch (err) {
-      toast.error(err.response.data.message, {
+      toast.error("Failed to login. Check your credentials and try again.", {
         pauseOnHover: false,
         autoClose: 2000,
       });
@@ -51,17 +51,17 @@ const Login = () => {
         otp: Number(otp),
       });
       if (response.status === 200) {
-        toast.success(response.data.message, {
+        toast.success("OTP verified! You're all set.", {
           pauseOnHover: false,
           autoClose: 2000,
         });
         dispatch(loginUser({ user: response.data.user }));
-        navigate("/app", {
+        navigate("/home", {
           replace: true,
         });
       }
     } catch (err) {
-      toast.error(err.response.data.message, {
+      toast.error("Invalid OTP. Please try again.", {
         pauseOnHover: false,
         autoClose: 2000,
       });
@@ -88,12 +88,13 @@ const Login = () => {
       });
     }, 1000);
   };
+
   return (
     <>
       <div className="wrapper flex flex-col justify-between h-full max-h-[720px]">
         <div>
-          <h1 className="font-bold text-2xl mb-3">Hello,</h1>
-          <p className="mb-4 font-normal">Login to your account</p>
+          <h1 className="font-bold text-2xl mb-3">Welcome to Con-in!</h1>
+          <p className="mb-4 font-normal">Sign in to see what's happening!</p>
 
           <Form
             name="login"
@@ -110,18 +111,18 @@ const Login = () => {
               rules={[
                 {
                   required: true,
-                  message: "Please input your email!",
+                  message: "Please enter your email!",
                 },
                 {
                   type: "email",
-                  message: "Please input a valid email address!",
+                  message: "Enter a valid email address!",
                 },
               ]}
             >
               <Input
                 size="large"
-                placeholder="Enter Email"
-                suffix={<img src={userIcon} />}
+                placeholder="Email Address"
+                suffix={<img src={userIcon} alt="User Icon" />}
                 readOnly={isCredentialsCorrect}
               />
             </Form.Item>
@@ -132,12 +133,12 @@ const Login = () => {
               rules={[
                 {
                   required: true,
-                  message: "Please input your password!",
+                  message: "Please enter your password!",
                 },
               ]}
             >
               <Input.Password
-                placeholder="Enter Password"
+                placeholder="Password"
                 size="large"
                 readOnly={isCredentialsCorrect}
               />
@@ -159,7 +160,7 @@ const Login = () => {
                     block
                     className="!bg-[#0E5782] mt-3 !text-white !border-[#0E5782] hover:!bg-[#0D4572]"
                   >
-                    {isLoading ? <LoadingOutlined /> : "Login"}
+                    {isLoading ? <LoadingOutlined spin /> : "Sign In"}
                   </Button>
                 </Form.Item>
               </>
@@ -171,16 +172,16 @@ const Login = () => {
                   rules={[
                     {
                       required: true,
-                      message: "Please input your OTP!",
+                      message: "Enter your OTP!",
                     },
                   ]}
                 >
-                  <Input.OTP length={6} autoFocus onChange={submitOtp} />
+                  <Input autoFocus onChange={submitOtp} />
                 </Form.Item>
                 <Button
                   size="large"
                   block
-                  className={` !text-white mt-4 !border-none ${
+                  className={`!text-white mt-4 !border-none ${
                     isCounting
                       ? "!bg-[#0e5882ad]"
                       : "!bg-[#0E5782] hover:!bg-[#0D4572]"
@@ -189,7 +190,7 @@ const Login = () => {
                   disabled={isCounting}
                 >
                   {isLoading ? (
-                    <LoadingOutlined />
+                    <LoadingOutlined spin />
                   ) : isCounting ? (
                     `Resend OTP in ${counter}s`
                   ) : (
@@ -200,60 +201,17 @@ const Login = () => {
             )}
             <div className={`${isCredentialsCorrect ? "hidden" : ""} mt-10`}>
               <p className="text-base text-center">
-                Don't have an account?{" "}
+                New to Con-in?{" "}
                 <Link className="!text-black font-bold" to="/auth/signup">
-                  Signup
+                  Create an account
                 </Link>
               </p>
-              <div className="flex justify-center text-center">
-                <Form.Item
-                  name="terms"
-                  valuePropName="checked"
-                  rules={[
-                    {
-                      required: true,
-                      validator: (_, value) => {
-                        if (!value) {
-                          return Promise.reject(
-                            "You must agree to the terms and conditions!"
-                          );
-                        }
-                        return Promise.resolve();
-                      },
-                    },
-                  ]}
-                >
-                  <div className="w-full max-w-92 text-left mt-4 font-semibold !text-base">
-                    <Checkbox name="terms" className="">
-                      I have read and agree to Busselton Water's <br />
-                      <Link className="!text-[#0E5782] !underline">
-                        Terms of Use
-                      </Link>{" "}
-                      and{" "}
-                      <Link className="!text-[#0E5782] !underline">
-                        Privacy Statement
-                      </Link>
-                    </Checkbox>
-                  </div>
-                </Form.Item>
-              </div>
             </div>
           </Form>
         </div>
 
-        <p>Busselton Water &copy; {new Date().getFullYear()}</p>
+        <p>Con-in &copy; {new Date().getFullYear()}</p>
       </div>
-      <style scoped>
-        {`
-           .ant-checkbox-wrapper{
-            margin:0 auto;
-           } 
-            .ant-checkbox+span{
-                padding-inline-start:15px;
-                font-size:16px;
-            }
-    `}
-      </style>
     </>
   );
 };
