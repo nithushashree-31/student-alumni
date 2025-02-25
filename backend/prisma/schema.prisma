@@ -3,7 +3,7 @@ generator client {
 }
 
 datasource db {
-  provider = "mysql"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
@@ -59,7 +59,7 @@ model WaterService {
   createdBy             Int?
   createdAt             DateTime          @default(now())
   modifiedBy            Int?
-  modifiedAt            DateTime          @default(now()) @updatedAt @db.DateTime(3)
+  modifiedAt            DateTime          @default(now()) @updatedAt 
   isDeleted             Boolean           @default(false)
 }
 

@@ -1,21 +1,25 @@
 import { Module } from '@nestjs/common';
+import { ConfigModule } from '@nestjs/config';
+
 import { PrismaModule } from 'prisma/prisma.module';
-import { WaterServiceModule } from './app-modules/water-service/water-service.module';
 import { AuthModule } from './auth/auth.module';
-import { NotificationModule } from './notification/notification.module';
 import { UserModule } from './user/user.module';
+import { NotificationModule } from './notification/notification.module';
+import { WaterServiceModule } from './app-modules/water-service/water-service.module';
 import { FieldsModule } from './app-modules/fields/fields.module';
 import { GlobalModule } from './common/global/global.module';
 
 @Module({
   imports: [
-    AuthModule,
+    ConfigModule.forRoot({ isGlobal: true }), // Ensure environment variables are loaded globally
     PrismaModule,
+    AuthModule,
     UserModule,
     NotificationModule,
     WaterServiceModule,
     FieldsModule,
-    GlobalModule
+    GlobalModule,
   ],
 })
 export class AppModule {}
+
