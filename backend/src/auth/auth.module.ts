@@ -5,14 +5,16 @@ import { AuthService } from './auth.service';
 import { JwtModule } from '@nestjs/jwt';
 import { JwtStrategy } from './strategies/jwt.strategy';
 
+console.log('JWT Expiration Time:', process.env.JWT_TOKEN_EXPIRES_IN);
+
 @Module({
   imports:[
     UserModule,
     JwtModule.register({
       global:true,
-      secret:process.env.JWT_SECRET,
+      secret:'Nithusha@123',
       signOptions:{
-        expiresIn:process.env.JWT_TOKEN_EXPIRES_IN
+        expiresIn: '1h',
       }
     })
 ],

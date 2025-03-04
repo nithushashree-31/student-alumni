@@ -51,7 +51,7 @@ export class AuthService {
     const user = await this.userService.findUserByEmail(data.email);
     const currentTime = new Date();
     const otpDate = user?.mfaOtpStartTime || new Date();
-    const isOtpValid = data.otp === user?.mfaOtp;
+    const isOtpValid = Number(data.otp) === user?.mfaOtp;
     if (!isOtpValid) {
       throw new BadRequestException('Invalid OTP!');
     }

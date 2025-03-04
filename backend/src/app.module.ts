@@ -11,7 +11,10 @@ import { GlobalModule } from './common/global/global.module';
 
 @Module({
   imports: [
-    ConfigModule.forRoot({ isGlobal: true }), // Ensure environment variables are loaded globally
+    ConfigModule.forRoot({
+      isGlobal: true, // Ensure environment variables are loaded globally
+      envFilePath: '.env', // Specify .env file
+    }),
     PrismaModule,
     AuthModule,
     UserModule,
@@ -22,4 +25,5 @@ import { GlobalModule } from './common/global/global.module';
   ],
 })
 export class AppModule {}
+
 

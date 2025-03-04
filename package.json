@@ -1,0 +1,23 @@
+{
+  "name": "conin",
+  "version": "1.0.0",
+  "description": "1. **Navigate to the backend directory:**\r     ```bash\r     cd conin/backend\r     ```",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://nithushashree31@bitbucket.org/ai-code-review/conin.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://bitbucket.org/ai-code-review/conin/issues"
+  },
+  "homepage": "https://bitbucket.org/ai-code-review/conin#readme",
+  "dependencies": {
+    "express": "^4.21.2"
+  }
+}

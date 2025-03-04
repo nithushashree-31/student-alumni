@@ -1,11 +1,11 @@
 import { IsEmail, IsNotEmpty, IsString } from "class-validator";
 
-export class LoginDto{
+export class LoginDto {
+    @IsEmail({}, { message: "Invalid email format" })
+    readonly email: string;
 
     @IsString()
-    @IsEmail({require_tld:true})
-    readonly email:string;
-
     @IsNotEmpty()
-    readonly password:string;
+    readonly password: string;
 }
+
